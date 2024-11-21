@@ -1,0 +1,23 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: git-push-triggertemplate
+spec:
+  params:
+    - name: repo-url
+      description: The Git repository URL
+    - name: repo-revision
+      description: The Git revision/branch to clone
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: git-push-pipelinerun-
+      spec:
+        pipelineRef:
+          name: git-push-pipeline
+        params:
+          - name: repo-url
+            value: "$(params.repo-url)"
+          - name: repo-revision
+            value: "$(params.repo-revision)"
