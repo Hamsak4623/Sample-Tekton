@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: git-push-pipeline
+spec:
+  tasks:
+    - name: clone-repo
+      taskRef:
+        name: git-clone
+      params:
+        - name: URL
+          value: "$(params.repo-url)"
+        - name: revision
+          value: "$(params.repo-revision)"
+    - name: make-changes
+      taskRef:
+        name: apply-changes
+    - name: commit-and-push
+      taskRef:
+        name: git-commit-push
+      params:
+        - name: message
+          value: "Automated change"
+        - name: remote-url
+          value: "$(params.repo-url)"
