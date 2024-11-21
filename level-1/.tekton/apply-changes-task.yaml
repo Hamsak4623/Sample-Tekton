@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: apply-changes
+spec:
+  steps:
+    - name: apply-changes
+      image: "ubuntu"
+      script: |
+        #!/bin/bash
+        cd /workspace/repo
+        echo "Making some automated changes..." >> changes.txt
