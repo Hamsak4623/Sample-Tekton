@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-commit-push
+spec:
+  params:
+    - name: message
+      type: string
+    - name: remote-url
+      type: string
+  steps:
+    - name: commit-and-push
+      image: "alpine/git"
+      script: |
+        #!/bin/sh
+        cd /workspace/repo
+        git config --global user.name "tekton-bot"
+        git config --global user.email "tekton@ibm.com"
+        git add .
+        git commit -m "$(params.message)"
+        git push "$(params.remote-url)"
