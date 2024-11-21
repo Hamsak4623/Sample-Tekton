@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: git-push-pipelinerun-manual-trigger
+spec:
+  pipelineRef:
+    name: git-push-pipeline 
+  params:
+    - name: repo-url
+      value: "https://github.com/Hamsak4623/Sample-Tekton.git"  
+    - name: repo-revision
+      value: "main"  
