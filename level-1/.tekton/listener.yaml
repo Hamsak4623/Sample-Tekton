@@ -1,0 +1,11 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: git-event-listener
+spec:
+  triggers:
+    - name: git-push-trigger
+      bindings:
+        - ref: git-push-triggerbinding
+      template:
+        ref: git-push-triggertemplate
